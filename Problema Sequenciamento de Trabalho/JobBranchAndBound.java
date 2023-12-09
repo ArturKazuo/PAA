@@ -1,7 +1,7 @@
 
 import java.util.*;
  
-public class JobSequencing {
+public class JobBranchAndBound {
  
     // classe que representa trabalho
     static class Job {
@@ -15,27 +15,26 @@ public class JobSequencing {
             this.profit = profit;
         }
     }
+
     //buildBranchBound
     static void buildBranchBound(ArrayList<Job> arr)
     {
         int n = arr.size();
  
-        // sorting the array on the
-        // basis of their deadlines
+        // organiza o array com base em deadlines
         Collections.sort(arr, (a, b) -> {
             return a.deadline - b.deadline;
         });
  
-        // initialise the result array and maxHeap
         ArrayList<Job> result = new ArrayList<>();
         PriorityQueue<Job> maxHeap = new PriorityQueue<>(
             (a, b) -> { return b.profit - a.profit; });
  
-        // starting the iteration from the end
+        //começa a iteração do final
         for (int i = n - 1; i > -1; i--) {
             int slot_available;
            
-            // calculate slots between two deadlines
+            //calcula um slot entre duas deadlines
             if (i == 0) {
                 slot_available = arr.get(i).deadline;
             }
@@ -44,26 +43,20 @@ public class JobSequencing {
                                  - arr.get(i - 1).deadline;
             }
  
-            // include the profit of job(as priority),
-            // deadline and job_id in maxHeap
             maxHeap.add(arr.get(i));
  
             while (slot_available > 0
                    && maxHeap.size() > 0) {
  
-                // get the job with max_profit
                 Job job = maxHeap.remove();
  
-                // reduce the slots
                 slot_available--;
  
-                // include the job in the result array
                 result.add(job);
             }
         }
  
-        // jobs included might be shuffled
-        // sort the result array by their deadlines
+        //ordena o array result de acordo com deadlines
         Collections.sort(result, (a, b) -> {
             return a.deadline - b.deadline;
         });
@@ -75,7 +68,6 @@ public class JobSequencing {
         System.out.println();
     }
  
-    // Driver's Code
     public static void main(String[] args)
     {
         ArrayList<Job> arr = new ArrayList<Job>();

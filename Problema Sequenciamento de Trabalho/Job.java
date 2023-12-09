@@ -2,7 +2,7 @@ import java.util.*;
  
 class Job {
    
-    // Each job has a unique-id,profit and deadline
+    //Cada trabalho tem um id, lucro e deadline
     int id;
     int deadline, penalization;
  
@@ -16,11 +16,9 @@ class Job {
         this.penalization = penalization;
     }
  
-    // Function to schedule the jobs take 2 arguments
-    // arraylist and no of jobs to schedule
+    
     void printJobScheduling(ArrayList<Job> arr, int t)
     {
-        // Length of array
         int n = arr.size();
         int max = 0;
 
@@ -68,7 +66,6 @@ class Job {
     
     }
  
-    // Driver's code
     public static void main(String args[])
     {
         long tempoInicial = System.nanoTime();
